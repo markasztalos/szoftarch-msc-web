@@ -1,0 +1,102 @@
+<html>
+
+<head>
+	<title>Knockout sample</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+	<script type="text/javascript" src="code.js"></script>
+
+</head>
+
+<body>
+	<div class="container-fluid">
+		<h1>Software Architecture Course - Admin Page</h1>
+
+		<div id="view">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>Select semester</h3></div>
+				<div class="panel-body">
+					<select data-bind="options: semesters, optionsText: 'id', value: selectedSemester"></select>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>Add new student</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form-inline">
+						<div class="form-group">
+							<label>Name:</label>
+							<input type="text" data-bind="textInput: newStudentName" />
+						</div>
+						<div class="form-group">
+							<label>ID:</label>
+							<input type="text" data-bind="textInput: newStudentId" />
+						</div>
+						<button class="btn btn-default" data-bind="click: addNewStudent, enable: canAddNewStudent">Add student</button>
+					</form>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>Students of semester <span data-bind="text: selectedSemester().id"></span></h3>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>ID</th>
+								<th>Exam 1</th>
+								<th>Exam 2</th>
+								<th>Final Exam</th>
+								<th>Homework</th>
+								<th>Total</th>
+								<th>Grade</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: studentsOfCurrentSemester()">
+							<tr>
+								<td data-bind="text: name"></td>
+								<td data-bind="text: id"></td>
+								<td>
+									<input type="text" data-bind="textInput: exam1" />
+								</td>
+								<td>
+									<input type="text" data-bind="textInput: exam2" />
+								</td>
+								<td>
+									<input type="text" data-bind="textInput: finalExam" />
+								</td>
+								<td>
+									<input type="text" data-bind="textInput: homework" />
+								</td>
+								<td data-bind="text: totalPoints"></td>
+								<td data-bind="text: grade"></td>
+								<td>
+									<button data-bind="click: $parent.deleteStudent.bind($data)">Delete</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var viewModel = new SoftArchViewModel();
+				var view = $("#view")[0];
+				
+				ko.applyBindings(viewModel, view);
+			});
+		</script>
+
+	</div>
+</body>
+
+</html>

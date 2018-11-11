@@ -1,0 +1,77 @@
+<div class="container-fluid" *ngIf="model">
+    <h1>Software Architecture Course - Admin Page</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                Select semester
+            </div>
+            <select [(ngModel)]="selectedSemesterId" id="selectedSemesterId" name="selectedSemesterId">
+                <option *ngFor="let semester of model.semesters" [value]="semester.id">{{semester.id}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-body">
+            <div class="card-title">
+                Add new student
+            </div>
+            <form class="form-inline">
+                <label for="newStudentName">Name:</label>
+                <input type="text" [(ngModel)]="model.newStudentName" name="newStudentName" />
+                <label for="newStudentId">ID:</label>
+                <input type="text" [(ngModel)]="model.newStudentId" name="newStudentId" />
+                <button class="btn btn-default" (click)="model.addNewStudent()" [disabled]="!model.canAddNewStudent">Add student</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">Students of semester {{selectedSemesterId}}</div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Exam 1</th>
+                        <th>Exam 2</th>
+                        <th>Final Exam</th>
+                        <th>Homework</th>
+                        <th>Total</th>
+                        <th>Grade</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of model.studentsOfCurrentSemester">
+                        <td>{{student.name}}</td>
+                        <td>{{student.id}}</td>
+                        <td>
+                            <input type="number" [(ngModel)]="student.exam1" [ngModelOptions]="{standalone: true}" />
+                        </td>
+                        <td>
+                            <input type="number" [(ngModel)]="student.exam2" [ngModelOptions]="{standalone: true}" />
+                        </td>
+                        <td>
+                            <input type="number" [(ngModel)]="student.finalExam" [ngModelOptions]="{standalone: true}" />
+                        </td>
+                        <td>
+                            <input type="number" [(ngModel)]="student.homework" [ngModelOptions]="{standalone: true}" />
+                        </td>
+                        <td>{{student.totalPoints}}</td>
+                        <td>{{student.grade}}</td>
+                        <td>
+                            <button (click)="model.deleteStudent(student)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
