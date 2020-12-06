@@ -3,7 +3,7 @@
 ## Előadás diák
 
 1. [Első előadás](Web1.pdf)
-1. [Második előadás](Web1.pdf)
+1. [Második előadás](Web2.pdf)
 
 ## Demó fájlok működése
 
